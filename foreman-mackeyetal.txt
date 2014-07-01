@@ -1,0 +1,50 @@
+<strong>Title:</strong> <a href="http://arxiv.org/abs/1406.3020" target="_blank">Inferring the rate and distribution of Earth-like exoplanets from noisy individual-planet inferences.</a>
+<strong>Authors:</strong> Daniel Foreman-Mackey, David W. Hogg, Timothy D. Morton
+<strong>First Author’s institution:</strong> New York University
+<strong>Status:</strong> Submitted to ApJ
+
+In November 2013, <a href="http://arxiv.org/abs/1311.6806" target="_blank">Petigura et al.</a> found that one in twenty Sun-like stars have Earth-like planets. According to Foreman-Mackey et al., it’s more like one in fifty.
+
+<strong>The Planet Distribution</strong>
+
+We want to know how common Earth-like planets are. We also want to know how common Jupiter-like planets are, Neptune-like planets, hot-Jupiters, super-Earths, etc, etc. We can calculate how common all these different types of planets are, i.e. the ‘planet population distribution’, from a homogeneous data set like Kepler’s. But it’s not as simple as you might first think. You can’t just bin up all the confirmed exoplanets according to their size and orbital period and count the number in each bin - you have to take detection efficiency into account. Big exoplanets are much easier to find than small exoplanets, so if you took the naïve binning approach you would (wrongly) conclude that bigger exoplanets are more common.
+
+The authors of this paper re-calculate the planet population distribution found by Petigura et al in November last year. They use a more flexible model, impose weaker assumptions, take observational uncertainties into account and get a very different result.
+
+[caption id="attachment_48554" align="aligncenter" width="679"]<a href="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-13.56.29.png"><img class="wp-image-48554 size-full" src="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-13.56.29.png" alt="Figure 1. The distributions in planetary radii and orbital period for a fake set of exoplanets. The grey scale in the central panel shows the underlying distribution from which the data points are drawn. The two histograms above and to the right of the central panel show the number of planets falling in each bin.  The red dashed line in the two histogram panels shows the true, underlying distribution that was used to generate the fake data. The black lines show the results - draws from the posteriors of the model parameters - and the data points show what you get if you weight the bin heights with the inverse-detection efficiency. The modelled distribution result is less precise but more accurate than the inverse-detection efficiency result." width="679" height="634" /></a> Figure 1. The distributions in planetary radii and orbital period for a fake set of exoplanets. The grey scale in the central panel shows the underlying distribution from which the data points are drawn. The two histograms above and to the right of the central panel show the number of planets falling in each bin. The red dashed line in the two histogram panels shows the true, underlying distribution that was used to generate the fake data. The black lines show the results - draws from the posteriors of the model parameters - and the data points show what you get if you weight the bin heights with the inverse-detection efficiency. The modelled distribution result is less precise but more accurate than the inverse-detection efficiency result.[/caption]
+
+<strong>Previously...</strong>
+
+Petigura et al. measured their detection efficiency for <a href="http://en.wikipedia.org/wiki/Kepler_(spacecraft)" target="_blank">Kepler</a> planets. They injected fake planet transit signals into the Kepler light curves of 42,000 Sun-like stars and saw how many they recovered using their own detection algorithm. They binned the detected exoplanets according to radius and distance from their host star and calculated their “1in 5” result by weighting the number of planets in each bin by the inverse of their detection efficiency. The authors of this paper take a slightly different approach.
+
+<strong>Testing the model</strong>
+
+Foreman-Mackey et al. use a histogram – where the parameters are the bin heights – to model the population of exoplanets. They assert that the distribution should be smooth - there shouldn’t be vastly more Neptune-radius planets than nearly-Neptune radius planets, for example*. They use a Gaussian process (GP) to force the distribution to be smooth. A GP is a type of semi-parametric model, useful for modelling stochastic processes which only uses information about the correlation between data points. See <strong>this astrobite</strong> from Ben Montet for more about  GPs.
+
+Foreman-Mackey et al. test the effectiveness of their model on a fake data set. They make up some exoplanet distribution and draw random samples from it - this is their fake data. They then use their model to try to recover the underlying population. As shown in figure 1, modelling the bin heights using a GP regularisation instead of simply weighting the individual bins with the inverse detection efficiency produces a less precise but more accurate estimate of the underlying distribution.
+
+A probabilistic approach to inference is used throughout this paper – posterior distributions of the model parameters are explored using <a href="http://arxiv.org/abs/1001.0175" target="_blank">elliptical slice MCMC</a> and the full set of posterior samples are available online <a href="http://figshare.com/articles/Exoplanet_population_inference/1051864" target="_blank">here</a>.
+
+Having checked their method works the authors apply it to real data from Petigura <em>et al.</em> (2013) – see figure 2.
+
+[caption id="attachment_48555" align="aligncenter" width="659"]<a href="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-14.02.23.png"><img class="size-full wp-image-48555" src="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-14.02.23.png" alt="Figure 2. The same as figure 1, except with real exoplanet data. There is no red line in this case because the true distribution is unknown." width="659" height="626" /></a> Figure 2. The same as figure 1, except with real exoplanet data. There is no red line in this case because the true distribution is unknown.[/caption]
+
+<strong>How common are Earth-like planets?</strong>
+
+Despite Kepler's best efforts, this question is hard to answer because we <em>haven’t found any yet!</em> So we have to extrapolate. The authors of this paper have calculated the rate densities of planets for a range of periods and radii. To calculate the rate of Earth-like planets they integrate over the Earth-radius, Earth-period bin. Whereas Petigura et al. found that 5.7<sup>+0.22</sup><sub>-0.017 </sub>% of Sun-like stars have Earth-like planets, Foreman-Mackey et al. find that only 1.6<sup>+0.011</sup><sub>-0.007 </sub>% do. So what is the cause of this MASSIVE discrepancy? Petigura et al. assumed that the period distribution was flat across the Earth-like bin, whereas Foreman-Mackey et al. allowed it to be flexible and find evidence that it is <em>decreasing</em>. This is an example of how assumptions can have an enormous impact on results! Of course, Foreman-Mackey at al. only provide point estimates under duress – otherwise they’d only ever provide posterior samples. Figure 3 shows their posterior for the rate density of Earth-like planets.
+
+[caption id="attachment_48556" align="alignright" width="300"]<a href="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-14.17.58.png"><img class="wp-image-48556 size-medium" src="http://astrobites.org/wp-content/uploads/2014/07/Screen-Shot-2014-06-28-at-14.17.58-300x238.png" alt="Figure 3. The rate density of Earth-like planets per natural-logarithmic unit. The Histogram shows their posterior probability distribution and the solid line shows the result of Petigura et al. with dashed 1 sigma uncertainties. " width="300" height="238" /></a> Figure 3. The rate density of Earth-like planets per natural-logarithmic unit. The Histogram shows their posterior probability distribution and the solid line shows the result of Petigura et al. with dashed 1 $latex \sigma$ uncertainties.[/caption]
+
+<strong>Nine Earth-like planets</strong>
+
+In the four years of the Kepler spacecraft’s fully operational lifetime it monitored the brightness of about 42,000 Sun-like stars continuously, searching for exoplanets. The jewel in Kepler’s crown was to be an Earth-like planet but such a planet has still not been discovered. That doesn’t mean we should give up hope, however. The authors of this paper use their inferred exoplanet occurrence rate density to calculate the number of Earth-like planets, detectable in the Kepler data set, taking geometric transit probability into account. They find 9.2&lt;sup&gt;+5.9&lt;/sup&gt;&lt;sub&gt;-4.0&lt;/sub&gt;. Better get searching!
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+* Earth-sized planets with orbits between 200 and 400 days
+
+* That’s not to say that that isn’t <em>possible</em> in nature, but we have no a priori reason to think so. You can see why population studies are so closely tied to formation mechanisms – if we <em>were</em> to find such a spike in Neptunes it would mean they are much better at forming than nearly-Neptunes.
